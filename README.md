@@ -7,6 +7,7 @@ Set working directory and load library
 
 ```
 library(qtl)
+library(zoo)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
 First inspect the data
@@ -157,3 +158,41 @@ Idetified a single 24cM QTL from broad mapping.
 Next fine mapping.
 
 
+#this is the drop in chi2 to get confidence intervals on location. Derived empirically from simulation script.
+```
+chi_drop=4.6
+```
+Read input file
+```
+HSSH <- read.csv("HS-SH,15-5.csv")
+head(HSSH)
+```
+| Sample | Plate | Well | Row | Col | Egg lay date | Egg lay period | Egg transfer (ET) | Infection start date | Infection end date | Infection period | Infection start date - Egg lay date | No. vials made on that date | Yeast usage       | Cage | Total flies collected on that date | 3 cM | 27 cM | Genotype (3 and 27 cM) | Plate Label | 7 cM | 10.3 cM | 12 cM | 17 cM | Wasp primer melting temperature  | Wasp DNA amplified | 8 cM | 11 cM | 10.7 cM | 11.3 cM | 11.6 cM | 8.5 cM | 9 cM | 10 cM |
+|--------|-------|------|-----|-----|--------------|----------------|-------------------|----------------------|--------------------|------------------|-------------------------------------|-----------------------------|-------------------|------|------------------------------------|------|-------|------------------------|-------------|------|---------|-------|-------|----------------------------------|--------------------|------|-------|---------|---------|---------|--------|------|-------|
+| 15     | 1     | G2   | G   | 2   | 25. Jan      | Overnight      | 25. Jan           | 28. Jan              | 29.01.19           | 1 day            | 3                                   | 10                          | Plastic, no yeast | 2    | 15                                 | H    | S     | HS                     | 1_G2        | H    | H       | S     | S     | 80.82924652                      | N                  | NA   | H     | NA      | H       | H       | NA     | NA   | NA    |
+| 18     | 1     | B3   | B   | 3   | 27. Jan      | Overnight      | 27. Jan           | 29. Jan              | 31.01.19           | 2 days           | 2                                   | 70                          | Plastic, no yeast | 2    | 89                                 | H    | S     | HS                     | 1_B3        | H    | H       | S     | S     | 81.12721252                      | N                  | NA   | H     | NA      | H       | H       | NA     | NA   | NA    |
+| 34     | 1     | B5   | B   | 5   | 27. Jan      | Overnight      | 27. Jan           | 29. Jan              | 31.01.19           | 2 days           | 2                                   | 70                          | Plastic, no yeast | 2    | 89                                 | H    | S     | HS                     | 1_B5        | H    | H       | S     | S     | 81.87213135                      | N                  | NA   | S     | NA      | NA      | NA      | NA     | NA   | NA    |
+| 50     | 1     | B7   | B   | 7   | 27. Jan      | Overnight      | 27. Jan           | 29. Jan              | 31.01.19           | 2 days           | 2                                   | 70                          | Plastic, no yeast | 2    | 89                                 | H    | S     | HS                     | 1_B7        | H    | H       | S     | S     | 78.44551086                      | Y                  | NA   | H     | NA      | H       | H       | NA     | NA   | NA    |
+
+Create matrix of marker genotypes
+```
+genotypes1=HSSH[,grep("cM",names(HSSH))]
+names(genotypes1)=gsub(".cM", "", names(genotypes1))
+genotypes1 <- genotypes1[-c(3)]
+names(genotypes1)=gsub("X", "", names(genotypes1))
+ind=order(as.numeric(names(genotypes1)))
+genotypes1=data.matrix(genotypes1[,ind])
+```
+Only use samples with evidence of parasitic wasp infection
+```
+genotypes1 <- genotypes1[HSSH$Wasp.DNA.amplified=="Y",]
+```
+Impute missing genotypes when flanking values same
+```
+is.wholenumber <-
+  function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
+
+genotypes2=t(apply(genotypes1,1,na.approx))
+ind=rowSums(!t(apply(genotypes2,1,is.wholenumber)))==0
+genotypes=genotypes2[ind,]
+```
