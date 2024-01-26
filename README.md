@@ -158,7 +158,7 @@ Idetified a single 24cM QTL from broad mapping.
 
 # Fine mapping
 
-Here the apporach was use the same backcross as before but only genotype resistant flies and identify regions where the marker ratio departed from a 50:50 expectation (homozygous vs heterozygous). The broad mapping results from before was used to focus on the region from 3 to 27 cM on chromosome 2. The first step was to identify flies with a recombination breakpoint within 3 to 27 cM. ~1300 F2 flies were phenotyped and genotyped. But only ~300 had a breakpint between the 3 to 27 cM.
+Here the approach was use the same backcross as before but only genotype resistant flies and identify regions where the marker ratio departed from a 50:50 expectation (homozygous vs heterozygous). The broad mapping results from before was used to focus on the region from 3 to 27 cM on chromosome 2. The first step was to identify flies with a recombination breakpoint within 3 to 27 cM. ~1300 F2 flies were phenotyped and genotyped. But only ~300 had a breakpint between the 3 to 27 cM.
 
 This is the observed risk ratio from non-recombinant flies (adults with capsules) (same  marker genotype at 3 and 27cM). There were 738 flies RR genotype and 260 SS flies
 ```
