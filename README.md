@@ -1,7 +1,8 @@
 # Drosophila-genetic-mapping
-Goal: ...
+Goal: To map _Drosophila melanogaster_ gene region(s) containing resistance to infection by parasitic wasp _Leptopilina boulardi_. Previous controlled crosses identified a factor or chromosome 2. First step was broad mapping on chromosome 2. Infected 385 F2 _D. melanogaster_ flies from an backross with a resistant and suceptible parental genotype with _L. boulardi_ and recorded their resistance status as resistant or susceptible (1 or 2 in phenotype column below). Selected 10 insertion-deletion markers interspersed along chromosome 2 for mapping and genotyped the 385 _D. melanogaster_. Then, interval mapping was done using R/QTL.
 
-**First step is to create a genetic map using marker segreation ratios, to see how linked markers are in current cross**
+# Broad mapping
+First step is to create a genetic map using marker segreation ratios, to see how linked markers are in current cross.
 
 Set working directory and load library
 
@@ -10,7 +11,7 @@ library(qtl)
 library(zoo)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
-First inspect the data
+Inspect the data
 ```
 comb1 <- read.csv(file="qtl_chr3rest_with5cm.csv")
 head(comb1)
@@ -155,11 +156,13 @@ rect(low,-5,up,20, col= rgb(0,0,1.0,alpha=0.15), border = NA)
 
 Idetified a single 24cM QTL from broad mapping.
 
-Next fine mapping.
+# Fine mapping
+
+Here the apporach was use the same backcross as before but only genotype resistant flies and identify regions where the marker ratio departed from a 50:50 expectation (homozygous vs heterozygous). The broad mapping results from before was used to focus on the region from 3 to 27 cM on chromosome 2. The first step was to identify flies with a recombination breakpoint within 3 to 27 cM. ~1300 F2 flies were phenotyped and genotyped. But only ~300 had a breakpint between the 3 to 27 cM.
 
 This is the observed risk ratio from non-recombinant flies (adults with capsules) (same  marker genotype at 3 and 27cM). There were 738 flies RR genotype and 260 SS flies
 ```
-observedRR=906/282
+observedRR=738/282
 ```
 function to simulate recombinant genotypes
 ```
