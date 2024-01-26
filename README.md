@@ -195,4 +195,45 @@ is.wholenumber <-
 genotypes2=t(apply(genotypes1,1,na.approx))
 ind=rowSums(!t(apply(genotypes2,1,is.wholenumber)))==0
 genotypes=genotypes2[ind,]
+table(genotypes[,7] == genotypes[,9])
 ```
+| FALSE | TRUE |
+|-------|------|
+| 2     | 109  |
+
+only 2 informative recombinants between 10.3 and 11
+
+Test if genotypes differ from 50:50 ratio
+```
+genotypes[genotypes==2]=0
+
+chi2=vector()
+for(i in 1:ncol(genotypes)){
+  x=prop.test(sum(genotypes[,i]),nrow(genotypes),p=0.5)$statistic
+  #next line changes sign depending on whether in correct direction
+  chi2[i]=ifelse((sum(genotypes[,i])/nrow(genotypes)>0.5),
+                 x,-x)
+}
+```
+get location CIs
+```
+locations=as.numeric(colnames(genotypes1))
+outside=which(chi2<max(chi2-4.6))
+peak=which(chi2==max(chi2))
+low=locations[outside[max(which(outside<peak))]]
+up=locations[outside[min(which(outside>peak))]]
+low
+```
+10
+```
+up
+```
+11.6
+
+Plot of chi2 (test of whether marker ratio departs from 50:50 ratio) along chromosome. Single 1.6cM peak detected.
+
+Beware this is not interval mapping so pay little attention to line between markers
+
+![image](https://github.com/arunkumarramesh/Drosophila-genetic-mapping/assets/23363383/22c54fca-e76b-4c85-a023-392ab1605d32)
+
+
