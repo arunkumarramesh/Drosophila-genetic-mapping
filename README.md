@@ -9,6 +9,20 @@ Set working directory and load library
 library(qtl)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
+First inspect the data
+```
+comb1 <- read.csv(file="qtl_chr3rest_with5cm.csv")
+head(comb1)
+```
+|   | Phenotype | Chr2L_3cM | Chr2L_5cM | Chr2L_7cM | Chr2L_10.3cM | Chr2L_17cM | Chr2L_27cM | Chr2L_34cM | Chr2L_54cM | Chr2R_67cM | Chr2R_104cM |
+|---|-----------|-----------|-----------|-----------|--------------|------------|------------|------------|------------|------------|-------------|
+| 1 | NA        | 1         | 1         | 1         | 1            | 1          | 1          | 1          | 1          | 1          | 1           |
+| 2 | 1         | A         | A         | H         | A            | A          | A          | A          | A          | H          | A           |
+| 3 | 2         | H         | H         | H         | H            | H          | H          | H          | H          | H          | A           |
+| 4 | 1         | A         | A         | A         | A            | A          | A          | A          | A          | A          | A           |
+| 5 | 2         | A         | <NA>      | A         | A            | A          | A          | A          | A          | A          | A           |
+| 6 | 2         | H         | H         | H         | H            | H          | H          | H          | A          | A          | H           |
+
 Read genotypes from cross into rqtl
 ```
 mapthis <- read.cross("csv", file="qtl_chr3rest_with5cm.csv", estimate.map=FALSE)
