@@ -157,7 +157,7 @@ Idetified a single 24cM QTL from broad mapping.
 
 Next fine mapping.
 
-This is the oberved risk ratio from non-recombinant flies (adults with capsules) (same  marker genotype at 3 and 27cM). There were 738 flies RR genotype and 260 SS flies
+This is the observed risk ratio from non-recombinant flies (adults with capsules) (same  marker genotype at 3 and 27cM). There were 738 flies RR genotype and 260 SS flies
 ```
 observedRR=906/282
 ```
