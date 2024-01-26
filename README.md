@@ -1,5 +1,5 @@
 # Drosophila-genetic-mapping
-Goal: To map _Drosophila melanogaster_ gene region(s) containing resistance to infection by parasitic wasp _Leptopilina boulardi_. Previous controlled crosses identified a factor or chromosome 2. First step was broad mapping on chromosome 2. Infected 385 F2 _D. melanogaster_ flies from an backross with a resistant and suceptible parental genotype with _L. boulardi_ and recorded their resistance status as resistant or susceptible (1 or 2 in phenotype column below). Selected 10 insertion-deletion markers interspersed along chromosome 2 for mapping and genotyped the 385 _D. melanogaster_. Then, interval mapping was done using R/QTL.
+Goal: To map _Drosophila melanogaster_ gene region(s) containing resistance to infection by parasitic wasp _Leptopilina boulardi_. Previous controlled crosses identified a resistance factor or chromosome 2. First step was broad mapping on chromosome 2. Infected 385 F2 _D. melanogaster_ flies from an backross with a resistant and suceptible parental genotype with _L. boulardi_ and recorded their resistance status as resistant or susceptible (1 or 2 in phenotype column below). Selected 10 insertion-deletion markers interspersed along chromosome 2 for mapping and genotyped the 385 _D. melanogaster_. Then, interval mapping was done using R/QTL.
 
 # Broad mapping
 First step is to create a genetic map using marker segreation ratios, to see how linked markers are in current cross.
@@ -164,7 +164,7 @@ This is the observed risk ratio from non-recombinant flies (adults with capsules
 ```
 observedRR=738/282
 ```
-function to simulate recombinant genotypes
+Choosing informative markers involved employing a χ2 drop, which was determined by simulating 1,000 datasets using the estimated risk ratio from nonrecombinant flies and the observed recombination fraction. This χ2 drop delineated a region containing the gene in 95% of the simulations.
 ```
 genosim=function(nrecombs=298, risk=observedRR){
   
